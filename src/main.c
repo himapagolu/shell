@@ -25,10 +25,11 @@ int main(int argc, char *argv[]) {
   //to exit out of shell
   else if(strcmp(command,"exit") == 0){
     break;
+  }else{
+    printf("%s: command not found\n",command);
   }
 
-  printf("%s:command not found\n",command);
+  }
 
   return 0;
-}
 }
