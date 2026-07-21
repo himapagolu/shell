@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
   command[strcspn(command,"\n")] = '\0';
 
   if(strncmp(command , "echo " , 5) == 0){
-    printf("%s/n",command + 5);
+    printf("%s\n",command + 5);
   }
   //to exit out of shell
   else if(strcmp(command,"exit") == 0){
