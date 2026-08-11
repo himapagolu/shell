@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
   // Flush after every printf
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]) {
   else if(strncmp(command,"type ",5) == 0){
     if(strcmp(command + 5, "exit") == 0|| strcmp(command + 5, "echo") == 0 || strcmp(command + 5, "type") == 0){
       printf("%s is a shell builtin\n" , command+5);
-    }else{
+    }else {
       printf("%s: not found\n", command+5);
     }
     
