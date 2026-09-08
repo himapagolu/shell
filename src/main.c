@@ -35,16 +35,47 @@ int main(int argc, char *argv[]) {
     if(strcmp(command + 5, "exit") == 0|| strcmp(command + 5, "echo") == 0 || strcmp(command + 5, "type") == 0){
       printf("%s is a shell builtin\n" , command+5);
     }else {
-      printf("%s: not found\n", command+5);
+      char *path_env = getenv("PATH");
+      char found_path[1024];
+      int found = 0;
+
+      if(path_env != NULL){
+        // Copy since strtok mutates its input, to safe guard the direct path mutation we have work on the copy 
+        char path_copy[4096];
+        strncpy(path_copy, path_env, sizeof(path_copy) - 1);
+        // added null terminator to safe guard the buffer 
+        path_copy[sizeof(path_copy) - 1] = '\0';
+
+        char *dir = strtok(path_copy, ":");
+        while(dir != NULL){
+          // adds the dir tokens from strtok of path_copy and add it to the found_path buffer with the input we are searching for 
+          snprintf(found_path, sizeof(found_path), "%s/%s", dir, command + 5);
+
+          if(access(found_path, X_OK) == 0){
+            found = 1;
+            break;
+          }
+
+          dir = strtok(NULL, ":");
+        }
+      }
+
+      if(found){
+        printf("%s is %s\n", command + 5, found_path);
+      } else {
+        printf("%s: not found\n", command + 5);
+      }
+      
     }
     
-  }else{
-    printf("%s: command not found\n",command);
-  }
+  
 
   }
 
   return 0;
 }
+
+
+
 
 
