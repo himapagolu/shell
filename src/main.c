@@ -65,10 +65,11 @@ int main(int argc, char *argv[]) {
       } else {
         printf("%s: not found\n", command + 5);
       }
-      
     }
-    
-  
+  }
+  else{
+    printf("%s: command not found\n", command);
+  }
 
   }
 
