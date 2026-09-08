@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
   setbuf(stdout, NULL);
 
   //to keep REPL running
+  //REPL stands for Read-Eval-Print Loop.
   while(1){
    
   //standard $ sign 
@@ -18,12 +19,15 @@ int main(int argc, char *argv[]) {
   fgets(command,sizeof(command),stdin);
 
   //to remove extra new line added when user presses enter
+  //strcspn = stringcompliment span - basically returns the span of the unmatched/rejected characters that doesn't match. returns the index of the first occurrence of any character in the second string in the first string. 
   command[strcspn(command,"\n")] = '\0';
 
+  //strncmp - string n elem comaparision = compares the first n characters of two strings. 
   if(strncmp(command , "echo " , 5) == 0){
     printf("%s\n",command + 5);
   }
   //to exit out of shell
+  //strcmp - string compare = compares two strings and returns 0 if they are equal.
   else if(strcmp(command,"exit") == 0){
     break;
   }
@@ -42,3 +46,5 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+
