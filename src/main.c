@@ -68,6 +68,15 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  else if(strcmp(command,"pwd") == 0){
+    char cwd[1024];
+    // getcwd is a default POSIX standard function
+    if(getcwd(cwd, sizeof(cwd)) != NULL){
+      printf("%s\n",cwd);
+    }else{
+      perror("pwd");
+    }
+  }
 
   else{
     // split command into argv tokens by spaces, to pass to execvp
