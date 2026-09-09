@@ -67,8 +67,41 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+
   else{
-    printf("%s: command not found\n", command);
+    // split command into argv tokens by spaces, to pass to execvp
+    char *exec_argv[64];
+    int exec_argc = 0;
+
+    char *token = strtok(command, " ");
+    while(token != NULL && exec_argc < 63){
+      exec_argv[exec_argc++] = token;
+      token = strtok(NULL, " ");
+    }
+    // execvp requires NULL-terminated array
+    exec_argv[exec_argc] = NULL;
+
+    // empty input, nothing to run
+    if(exec_argc == 0){
+      continue;
+    }
+
+
+    pid_t pid = fork();
+
+    if(pid == 0){
+      // child process — replace itself with the external program
+      execvp(exec_argv[0], exec_argv);
+      // execvp only returns on failure
+      perror(exec_argv[0]);
+      exit(1);
+    }else if(pid > 0){
+      // parent process — wait for child to finish
+      int status;
+      waitpid(pid, &status, 0);
+    }else{
+      perror("fork failed");
+    }
   }
 
   }
