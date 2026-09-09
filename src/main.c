@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     break;
   }
   else if(strncmp(command,"type ",5) == 0){
-    if(strcmp(command + 5, "exit") == 0|| strcmp(command + 5, "echo") == 0 || strcmp(command + 5, "type") == 0){
+    if(strcmp(command + 5, "exit") == 0|| strcmp(command + 5, "echo") == 0 || strcmp(command + 5, "type") == 0 || strcmp(command + 5, "pwd") == 0){
       printf("%s is a shell builtin\n" , command+5);
     }else {
       char *path_env = getenv("PATH");
