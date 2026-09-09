@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
       // child process — replace itself with the external program
       execvp(exec_argv[0], exec_argv);
       // execvp only returns on failure
-      perror(exec_argv[0]);
+      printf("%s: command not found\n",exec_argv[0]);
       exit(1);
     }else if(pid > 0){
       // parent process — wait for child to finish
